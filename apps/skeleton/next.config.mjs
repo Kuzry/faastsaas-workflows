@@ -1,4 +1,5 @@
 import createNextIntlPlugin from "next-intl/plugin";
+// import withFaastSaas from "@faastsaas/nextjs-plugin";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

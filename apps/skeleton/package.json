@@ -1,5 +1,5 @@
 {
-  "name": "skeleton",
+  "name": "@faastsaas/skeleton",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -36,7 +36,8 @@
     "zod": "^3.23.8",
     "zsa": "^0.5.1",
     "zsa-openapi": "^0.3.0",
-    "zsa-react": "^0.2.2"
+    "zsa-react": "^0.2.2",
+    "@faastsaas/nextjs-plugin": "*"
   },
   "devDependencies": {
     "@playwright/test": "^1.46.0",

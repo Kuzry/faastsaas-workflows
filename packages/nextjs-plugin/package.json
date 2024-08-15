@@ -1,4 +1,15 @@
 {
-  "name": "nextjs-plugin",
-  "private": true
+  "name": "@faastsaas/nextjs-plugin",
+  "private": true,
+  "exports": {
+    ".": "./dist/index.ts"
+  },
+  "scripts": {
+    "build": ""
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.6",
+    "npm": "^10.8.2",
+    "rollup": "^4.20.0"
+  }
 }

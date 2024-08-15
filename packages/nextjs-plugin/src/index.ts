@@ -1,0 +1,1 @@
+export { withFaastSaas } from './withFaastSaas';
