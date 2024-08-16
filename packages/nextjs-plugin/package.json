@@ -3,7 +3,7 @@
   "private": true,
   "exports": {
     ".": {
-      "types": "./src/index.d.ts",
+      "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     }
   },
@@ -11,8 +11,10 @@
     "build": "rollup -c"
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "^11.1.6",
+    "@faastsaas/typescript-config": "*",
     "npm": "^10.8.2",
-    "rollup": "^4.20.0"
+    "rollup": "^4.20.0",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.5.4"
   }
 }

@@ -1,0 +1,5 @@
+{
+  "extends": "@faastsaas/typescript-config/lib.json",
+  "include": ["src/**/*", "rollup.config.ts"],
+  "exclude": ["node_modules", "dist"]
+}

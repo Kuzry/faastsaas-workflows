@@ -12,4 +12,4 @@ const nextConfig = {
 
 const withNextIntl = createNextIntlPlugin();
 
-export default withNextIntl((nextConfig));
+export default withNextIntl(withFaastSaas(nextConfig));
