@@ -14,6 +14,7 @@
     "test:playwright": "playwright test"
   },
   "dependencies": {
+    "@faastsaas/nextjs-plugin": "*",
     "@hookform/resolvers": "^3.9.0",
     "@lemonsqueezy/lemonsqueezy.js": "^3.2.0",
     "@mantine/core": "^7.12.1",
@@ -39,6 +40,9 @@
     "zsa-react": "^0.2.2"
   },
   "devDependencies": {
+    "@faastsaas/eslint-config": "*",
+    "@faastsaas/prettier-config": "*",
+    "@faastsaas/typescript-config": "*",
     "@playwright/test": "^1.46.0",
     "@tailwindcss/typography": "^0.5.14",
     "@types/node": "^22.3.0",

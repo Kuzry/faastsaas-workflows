@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "prettier",
+    "plugin:@typescript-eslint/strict",
+    "plugin:@typescript-eslint/stylistic"
+  ],
+  "rules": {
+    "no-console": "error"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": true
+  },
+  "plugins": ["@typescript-eslint"]
+}

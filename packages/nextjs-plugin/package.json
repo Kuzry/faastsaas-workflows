@@ -2,10 +2,13 @@
   "name": "@faastsaas/nextjs-plugin",
   "private": true,
   "exports": {
-    ".": "./dist/index.ts"
+    ".": {
+      "types": "./src/index.d.ts",
+      "default": "./dist/index.js"
+    }
   },
   "scripts": {
-    "build": ""
+    "build": "rollup -c"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.1.6",

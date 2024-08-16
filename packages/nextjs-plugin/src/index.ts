@@ -1,1 +1,3 @@
-export { withFaastSaas } from './withFaastSaas';
+import withFaastSaas from "./withFaastSaas"
+
+export default withFaastSaas;
