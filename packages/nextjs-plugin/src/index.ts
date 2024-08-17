@@ -1,3 +1,3 @@
-import withFaastSaas from "./withFaastSaas"
+import createFaastSaasPlugin from "./createFaastSaasPlugin";
 
-export default withFaastSaas;
+export default createFaastSaasPlugin;

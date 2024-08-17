@@ -1,5 +1,5 @@
 import createNextIntlPlugin from "next-intl/plugin";
-import withFaastSaas from "@faastsaas/nextjs-plugin";
+import createFaastSaasPlugin from "@faastsaas/nextjs-plugin";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -11,5 +11,6 @@ const nextConfig = {
 };
 
 const withNextIntl = createNextIntlPlugin();
+const withFaastSaas = createFaastSaasPlugin();
 
 export default withNextIntl(withFaastSaas(nextConfig));
