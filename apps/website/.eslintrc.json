@@ -1,0 +1,4 @@
+{
+  "root": true,
+  "extends": ["@faastsaas/eslint-config/nextjs.json"]
+}
