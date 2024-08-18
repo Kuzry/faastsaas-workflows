@@ -9,12 +9,11 @@
     "lint": "next lint",
     "typecheck": "tsc",
     "prettier-check": "prettier --check ./src",
-    "husky-prepare": "husky",
     "supabase-gen-types-typescript": "supabase gen types typescript --linked --schema public > src/types/supabase.ts",
     "test:playwright": "playwright test"
   },
   "dependencies": {
-    "@faastsaas/nextjs-plugin": "*",
+    "@faastsaas/core": "*",
     "@hookform/resolvers": "^3.9.0",
     "@lemonsqueezy/lemonsqueezy.js": "^3.2.0",
     "@mantine/core": "^7.12.1",
@@ -54,7 +53,6 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.5",
     "eslint-config-prettier": "^9.1.0",
-    "husky": "^9.1.4",
     "mdx-bundler": "^10.0.2",
     "postcss": "^8.4.41",
     "prettier-plugin-tailwindcss": "^0.6.6",

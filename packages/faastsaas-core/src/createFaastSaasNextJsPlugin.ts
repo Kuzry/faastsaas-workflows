@@ -1,5 +1,5 @@
 import withFaastSaas from "./withFaastSaas";
 
-export default function createFaastSaasPlugin() {
+export default function createFaastSaasNextJsPlugin() {
   return withFaastSaas;
 }

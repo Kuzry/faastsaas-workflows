@@ -1,16 +1,16 @@
 import createNextIntlPlugin from "next-intl/plugin";
-import createFaastSaasPlugin from "@faastsaas/nextjs-plugin";
+import createFaastSaasNextJsPlugin from "@faastsaas/core";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    logging: {
-        fetches: {
-            fullUrl: true
-        }
+  logging: {
+    fetches: {
+      fullUrl: true,
     },
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();
-const withFaastSaas = createFaastSaasPlugin();
+const withFaastSaas = createFaastSaasNextJsPlugin();
 
 export default withNextIntl(withFaastSaas(nextConfig));
