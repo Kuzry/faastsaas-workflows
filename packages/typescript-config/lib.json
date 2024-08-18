@@ -1,7 +1,21 @@
 {
   "compilerOptions": {
+    "lib": ["esnext"],
+    "composite": false,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": false,
+    "isolatedModules": true,
+    "moduleResolution": "Bundler",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "preserveWatchOutput": true,
+    "skipLibCheck": true,
+    "strict": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
-    "declaration": true
+    "target": "es6",
+    "outDir": "dist"
   }
 }

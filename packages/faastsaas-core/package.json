@@ -1,5 +1,5 @@
 {
-  "name": "@faastsaas/nextjs-plugin",
+  "name": "@faastsaas/core",
   "private": true,
   "exports": {
     ".": {
