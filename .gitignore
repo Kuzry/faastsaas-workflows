@@ -31,3 +31,7 @@ npm-debug.log*
 
 # ide
 .idea/
+
+# Apps
+#apps/skeleton
+#apps/website
