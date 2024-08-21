@@ -135,6 +135,9 @@
       "dashboard": {
         "label": "Dashboard"
       },
+      "credentials": {
+        "label": "Credentials"
+      },
       "settings": {
         "label": "Settings"
       },
@@ -219,5 +222,43 @@
     "your_plan_is": "Current Plan",
     "manage_subscription": "Manage subscription",
     "next_renews": "Next renews"
+  },
+  "credentials_page": {
+    "title": "Credentials",
+    "add_credential": {
+      "button": "Add Credential",
+      "click_up": {
+        "inserted_success_alert": "Your credentials have been added. Now you can close this window.",
+        "inserted_error_alert": "An error occurred while inserting credentials. Close this window and try again."
+      }
+    },
+    "credentials_list": {
+      "empty_state": "No credentials",
+      "remove_credential": "Remove",
+      "remove_credential_modal": {
+        "title": "Delete Credential?",
+        "description": "Are you sure you want to delete \"{name}\"? This may break any workflows that use it.",
+        "cancel": "Cancel",
+        "confirm": "Yes, delete",
+        "success": "Your credential has been deleted.",
+        "error": "Something went wrong during delete credential."
+      },
+      "credential_status": {
+        "connected": "Connected",
+        "not_connected": "Not Connected",
+        "error": "Connection Error"
+      }
+    }
+  },
+  "add_credential_form": {
+    "fields": {
+      "app": {
+        "placeholder": "Search for app",
+        "messages": {
+          "custom": "Please select app to connect"
+        }
+      }
+    },
+    "submit_button": "Next"
   }
 }

@@ -16,7 +16,7 @@ export function Logo({ href = "/", className, ...props }: LogoProps) {
       )}
       {...props}
     >
-      FaastSaas
+      FaastSaas Workflows
       <span className="block text-[8px] font-normal leading-[0px]">
         Early Access
       </span>

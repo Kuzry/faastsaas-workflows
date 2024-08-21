@@ -101,6 +101,11 @@ export function AdminLayoutClient({ children, userButton }: RootProps) {
                   {t("menu.dashboard.label")}
                 </MenuLink>
               </MenuItem>
+              <MenuItem>
+                <MenuLink href="/credentials">
+                  {t("menu.credentials.label")}
+                </MenuLink>
+              </MenuItem>
             </Menu>
           </div>
         </AppShell.Section>

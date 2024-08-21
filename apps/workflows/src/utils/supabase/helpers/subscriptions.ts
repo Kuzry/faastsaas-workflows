@@ -3,7 +3,7 @@ import { Database } from "@/types/supabase";
 
 export async function upsertSubscription(
   supabase: SupabaseClient<Database>,
-  data: Database["public"]["Tables"]["subscriptions"]["Insert"]
+  data: Database["public"]["Tables"]["subscriptions"]["Row"]
 ) {
   const response = await supabase
     .from("subscriptions")
