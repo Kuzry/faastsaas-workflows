@@ -19,7 +19,7 @@
 # misc
 .DS_Store
 *.pem
-supabase
+/supabase
 
 # debug
 npm-debug.log*

@@ -21,6 +21,24 @@ export function CredentialRemove({ credential }: CredentialProps) {
 
   const { isPending, execute } = useServerAction(deleteCredentialAction);
 
+  const onClickConfirm = async () => {
+    const [, actionError] = await execute({
+      id: credential.id,
+    });
+
+    if (actionError) {
+      notifications.show({
+        message: t("credentials_list.remove_credential_modal.error"),
+        color: "red",
+      });
+    } else {
+      notifications.show({
+        message: t("credentials_list.remove_credential_modal.success"),
+        color: "green",
+      });
+    }
+  };
+
   return (
     <>
       <ActionIcon variant="transparent" className="text-gray" onClick={open}>
@@ -41,28 +59,7 @@ export function CredentialRemove({ credential }: CredentialProps) {
           <Button variant="outline" onClick={close}>
             {t("credentials_list.remove_credential_modal.cancel")}
           </Button>
-          <Button
-            loading={isPending}
-            onClick={async () => {
-              const [, actionError] = await execute({
-                id: credential.id,
-              });
-
-              if (actionError) {
-                notifications.show({
-                  message: t("credentials_list.remove_credential_modal.error"),
-                  color: "red",
-                });
-              } else {
-                notifications.show({
-                  message: t(
-                    "credentials_list.remove_credential_modal.success"
-                  ),
-                  color: "green",
-                });
-              }
-            }}
-          >
+          <Button loading={isPending} onClick={onClickConfirm}>
             {t("credentials_list.remove_credential_modal.confirm")}
           </Button>
         </div>

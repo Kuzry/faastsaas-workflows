@@ -38,8 +38,4 @@ export const deleteCredentialAction = createServerAction()
     await deleteCredentialById(supabase, input.id);
 
     revalidatePath("/account/credentials");
-
-    return {
-      success: true,
-    };
   });

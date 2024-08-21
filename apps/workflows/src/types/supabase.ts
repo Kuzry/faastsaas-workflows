@@ -242,6 +242,7 @@ export interface Database {
       };
       workflows: {
         Row: {
+          created_at: string;
           data: Json;
           id: string;
           name: string;
@@ -249,6 +250,7 @@ export interface Database {
           user_id: string;
         };
         Insert: {
+          created_at?: string;
           data: Json;
           id?: string;
           name: string;
@@ -256,6 +258,7 @@ export interface Database {
           user_id: string;
         };
         Update: {
+          created_at?: string;
           data?: Json;
           id?: string;
           name?: string;

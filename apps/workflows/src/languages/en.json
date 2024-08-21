@@ -138,6 +138,9 @@
       "credentials": {
         "label": "Credentials"
       },
+      "workflows": {
+        "label": "Workflows"
+      },
       "settings": {
         "label": "Settings"
       },
@@ -260,5 +263,41 @@
       }
     },
     "submit_button": "Next"
+  },
+  "workflows_page": {
+    "title": "Workflows",
+    "add_workflow": {
+      "button": "Add Workflow"
+    },
+    "workflows_list": {
+      "empty_state": "No workflows",
+      "remove_workflow": "Remove",
+      "remove_workflow_modal": {
+        "title": "Delete Workflow?",
+        "description": "Are you sure you want to delete \"{name}\"?",
+        "cancel": "Cancel",
+        "confirm": "Yes, delete",
+        "success": "Your workflow has been deleted.",
+        "error": "Something went wrong during delete workflow."
+      }
+    }
+  },
+  "workflow_page": {
+    "title": "Edit workflow: {name}"
+  },
+  "add_workflow_form": {
+    "error": {
+      "p1": "Something went wrong during adding workflow."
+    },
+    "fields": {
+      "name": {
+        "label": "Workflow name",
+        "placeholder": "Enter your workflow name",
+        "messages": {
+          "too_small": "Please enter workflow name"
+        }
+      }
+    },
+    "submit_button": "Add Workflow"
   }
 }

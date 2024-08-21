@@ -106,6 +106,11 @@ export function AdminLayoutClient({ children, userButton }: RootProps) {
                   {t("menu.credentials.label")}
                 </MenuLink>
               </MenuItem>
+              <MenuItem>
+                <MenuLink href="/workflows">
+                  {t("menu.workflows.label")}
+                </MenuLink>
+              </MenuItem>
             </Menu>
           </div>
         </AppShell.Section>
