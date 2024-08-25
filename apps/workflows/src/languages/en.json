@@ -299,5 +299,28 @@
       }
     },
     "submit_button": "Add Workflow"
+  },
+  "app_credential_form": {
+    "fields": {
+      "name": {
+        "label": "Credential Name",
+        "messages": {
+          "too_small": "Please enter credential name"
+        }
+      }
+    },
+    "apps": {
+      "clickUpOAuth2Api": {
+        "fields": {
+          "something": {
+            "label": "Something label!",
+            "messages": {
+              "too_small": "Please enter something!"
+            }
+          }
+        }
+      }
+    },
+    "submit_button": "Save credential"
   }
 }

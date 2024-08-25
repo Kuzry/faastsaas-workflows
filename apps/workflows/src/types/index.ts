@@ -1,5 +1,6 @@
 import { DefaultMantineColor, MantineColorsTuple } from "@mantine/core";
 import en from "./../languages/en.json";
+import { AnyZodObject } from "zod";
 
 // Lemon Squeezy
 // =====================================================================================================================
@@ -86,6 +87,17 @@ export interface TDoc {
 
 // Credentials
 // =====================================================================================================================
+export interface TApps {
+  id: string;
+  name: string;
+  schema: AnyZodObject;
+  fields: {
+    id: string;
+    type: string;
+    label: string;
+  }[];
+}
+
 export type TCredentialStatusName = "connected" | "not_connected" | "error";
 
 export interface TCredentialStatus<T = object> {

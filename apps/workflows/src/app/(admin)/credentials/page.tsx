@@ -20,6 +20,7 @@ export default function Credentials() {
       messages={{
         credentials_page: messages["credentials_page"],
         add_credential_form: messages["add_credential_form"],
+        app_credential_form: messages["app_credential_form"],
       }}
     >
       <AdminLayoutContainer>

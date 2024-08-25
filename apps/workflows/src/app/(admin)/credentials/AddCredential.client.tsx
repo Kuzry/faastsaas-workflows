@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { AddCredentialFormClient } from "@/forms/Credentials/AddCredential/AddCredentialForm.client";
 import { TAddCredentialFormSchema } from "@/forms/Credentials/AddCredential/schema";
+import { AppCredentialClient } from "@/forms/Credentials/AppCredential/AppCredential.client";
 
 export function AddCredentialClient() {
   const t = useTranslations("credentials_page");
@@ -46,8 +47,7 @@ export function AddCredentialClient() {
           inner: "md:pl-[250px]",
         }}
       >
-        {selectedApp}
-        {/*{selectedApp === 'click_up' && (<ClickUpForm />)}*/}
+        <AppCredentialClient app={selectedApp ?? ""} />
       </Modal>
     </>
   );

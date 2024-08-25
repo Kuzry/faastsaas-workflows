@@ -8,7 +8,6 @@ import { createSupabaseServerClient } from "@/utils/supabase/server";
 import { insertWorkflow } from "@/utils/supabase/helpers/workflows";
 import { getUser } from "@/utils/auth/helpers";
 import { headers } from "next/headers";
-import { authLinks } from "@/utils/auth";
 
 export const addWorkflowAction = createServerAction()
   .input(async () =>
