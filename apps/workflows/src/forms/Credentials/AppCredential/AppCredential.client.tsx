@@ -14,7 +14,7 @@ interface AppCredentialClientProps {
 export function AppCredentialClient({ app }: AppCredentialClientProps) {
   const t = useTranslations("app_credential_form");
 
-  const currentApp = getApps(t).find((seatchedApp) => seatchedApp.id === app);
+  const currentApp = getApps(t).find((searchedApp) => searchedApp.id === app);
 
   const schema = z
     .object({
