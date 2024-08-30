@@ -74,7 +74,6 @@ export function SignUpFormClient() {
           <TextInput
             {...field}
             label={t("fields.name.label")}
-            type="text"
             placeholder={t("fields.name.placeholder")}
             error={errors.name?.message}
           />
