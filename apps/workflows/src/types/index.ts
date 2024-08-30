@@ -96,6 +96,22 @@ export interface TApps {
     type: string;
     label: string;
   }[];
+  triggers: {
+    id: string;
+    label: string;
+    data: {
+      id: string;
+      label: string;
+    }[];
+  }[];
+  actions: {
+    id: string;
+    label: string;
+    data: {
+      id: string;
+      label: string;
+    }[];
+  }[];
 }
 
 export type TCredentialStatusName = "connected" | "not_connected" | "error";

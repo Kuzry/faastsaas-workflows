@@ -23,6 +23,34 @@ export function getApps(
           label: t("apps.clickUpOAuth2Api.fields.something.label"),
         },
       ],
+      triggers: [
+        {
+          id: "task.created",
+          label: t("apps.clickUpOAuth2Api.triggers.task_created.label"),
+          data: [
+            {
+              id: "name",
+              label: t(
+                "apps.clickUpOAuth2Api.triggers.task_created.data.name.label"
+              ),
+            },
+          ],
+        },
+      ],
+      actions: [
+        {
+          id: "task.create",
+          label: t("apps.clickUpOAuth2Api.actions.create_task.label"),
+          data: [
+            {
+              id: "name",
+              label: t(
+                "apps.clickUpOAuth2Api.actions.create_task.data.name.label"
+              ),
+            },
+          ],
+        },
+      ],
     },
   ];
 }

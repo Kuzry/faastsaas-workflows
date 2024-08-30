@@ -6,6 +6,7 @@ import { Form } from "@/components";
 import { getApps } from "@/utils/apps";
 import { Button, TextInput } from "@mantine/core";
 import { z } from "zod";
+import { ReactNode } from "react";
 
 interface AppCredentialClientProps {
   app: TAddCredentialFormSchema["app"];
@@ -14,15 +15,16 @@ interface AppCredentialClientProps {
 export function AppCredentialClient({ app }: AppCredentialClientProps) {
   const t = useTranslations("app_credential_form");
 
-  const currentApp = getApps(t).find((searchedApp) => searchedApp.id === app);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const currentApp = getApps(t).find((searchedApp) => searchedApp.id === app)!;
 
   const schema = z
     .object({
       name: z.string().min(1, { message: t("fields.name.messages.too_small") }),
     })
-    .merge(currentApp?.schema);
+    .merge(currentApp.schema);
 
-  const defaultValues = [];
+  const defaultValues: Record<string, string> = {};
   // Get app fields and set them empty string for react hook form defaultValues
   currentApp.fields.forEach((field) => (defaultValues[field.id] = ""));
 
@@ -38,7 +40,9 @@ export function AppCredentialClient({ app }: AppCredentialClientProps) {
     },
   });
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    // console.log('')
+  };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -50,7 +54,7 @@ export function AppCredentialClient({ app }: AppCredentialClientProps) {
             {...field}
             label={t("fields.name.label")}
             type="text"
-            error={errors.name?.message}
+            error={errors.name?.message as ReactNode}
           />
         )}
       />
@@ -64,7 +68,7 @@ export function AppCredentialClient({ app }: AppCredentialClientProps) {
                 <TextInput
                   {...field}
                   label={appField.label}
-                  error={errors[appField.id]?.message}
+                  error={errors[appField.id]?.message as ReactNode}
                 />
               )}
             />

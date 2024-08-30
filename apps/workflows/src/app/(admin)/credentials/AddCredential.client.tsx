@@ -47,7 +47,7 @@ export function AddCredentialClient() {
           inner: "md:pl-[250px]",
         }}
       >
-        <AppCredentialClient app={selectedApp ?? ""} />
+        {selectedApp && <AppCredentialClient app={selectedApp} />}
       </Modal>
     </>
   );

@@ -318,6 +318,26 @@
               "too_small": "Please enter something!"
             }
           }
+        },
+        "triggers": {
+          "task_created": {
+            "label": "Task Created",
+            "data": {
+              "name": {
+                "label": "Name"
+              }
+            }
+          }
+        },
+        "actions": {
+          "create_task": {
+            "label": "Create Task",
+            "data": {
+              "name": {
+                "label": "Name"
+              }
+            }
+          }
         }
       }
     },
