@@ -21,6 +21,7 @@ export default function Credentials() {
         credentials_page: messages["credentials_page"],
         add_credential_form: messages["add_credential_form"],
         app_credential_form: messages["app_credential_form"],
+        credentials: messages["credentials"],
       }}
     >
       <AdminLayoutContainer>

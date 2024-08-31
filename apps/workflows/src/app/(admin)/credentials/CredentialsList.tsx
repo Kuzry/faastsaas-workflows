@@ -32,9 +32,7 @@ async function CredentialsListAsync() {
         credentials.map((credential, key) => (
           <Paper key={key}>
             <PaperMain className="flex-row items-center justify-between p-0">
-              <CredentialFormDialog credential={credential}>
-                {/*  */}
-              </CredentialFormDialog>
+              <CredentialFormDialog credential={credential} />
               <div className="flex items-center gap-1 pr-3.5">
                 <CredentialStatus
                   status={

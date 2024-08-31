@@ -6,7 +6,8 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { AddCredentialFormClient } from "@/forms/Credentials/AddCredential/AddCredentialForm.client";
 import { TAddCredentialFormSchema } from "@/forms/Credentials/AddCredential/schema";
-import { AppCredentialClient } from "@/forms/Credentials/AppCredential/AppCredential.client";
+import { AppCredentialFormClient } from "@/forms/Credentials/AppCredential/AppCredentialForm.client";
+import { getCredentialById } from "@/utils/credentials";
 
 export function AddCredentialClient() {
   const t = useTranslations("credentials_page");
@@ -14,8 +15,14 @@ export function AddCredentialClient() {
   const addCredentialFormDialog = useDisclosure(false),
     credentialFormDialog = useDisclosure(false);
 
-  const [selectedApp, setSelectedApp] =
-    useState<TAddCredentialFormSchema["app"]>();
+  const [selectedCredential, setSelectedCredential] =
+    useState<TAddCredentialFormSchema>();
+
+  const onSubmit = (data: TAddCredentialFormSchema) => {
+    setSelectedCredential(data);
+    addCredentialFormDialog[1].close();
+    credentialFormDialog[1].open();
+  };
 
   return (
     <>
@@ -26,29 +33,29 @@ export function AddCredentialClient() {
         {t("add_credential.button")}
       </Button>
       <Modal
+        title={t("add_credential.add_modal.title")}
         opened={addCredentialFormDialog[0]}
         onClose={addCredentialFormDialog[1].close}
         classNames={{
           inner: "md:pl-[250px]",
         }}
       >
-        <AddCredentialFormClient
-          onSubmit={(data) => {
-            setSelectedApp(data.app);
-            addCredentialFormDialog[1].close();
-            credentialFormDialog[1].open();
+        <AddCredentialFormClient onSubmit={onSubmit} />
+      </Modal>
+      {selectedCredential && (
+        <Modal
+          title={t("add_credential.app_modal.title", {
+            credential: getCredentialById(selectedCredential.app)?.name,
+          })}
+          opened={credentialFormDialog[0]}
+          onClose={credentialFormDialog[1].close}
+          classNames={{
+            inner: "md:pl-[250px]",
           }}
-        />
-      </Modal>
-      <Modal
-        opened={credentialFormDialog[0]}
-        onClose={credentialFormDialog[1].close}
-        classNames={{
-          inner: "md:pl-[250px]",
-        }}
-      >
-        {selectedApp && <AppCredentialClient app={selectedApp} />}
-      </Modal>
+        >
+          <AppCredentialFormClient app={selectedCredential.app} />
+        </Modal>
+      )}
     </>
   );
 }

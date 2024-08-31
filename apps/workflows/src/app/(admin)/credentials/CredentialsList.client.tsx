@@ -9,6 +9,8 @@ import { useServerAction } from "zsa-react";
 import { Tables } from "@/types/supabase";
 import { notifications } from "@mantine/notifications";
 import { deleteCredentialAction } from "@/forms/Credentials/action";
+import { AppCredentialFormClient } from "@/forms/Credentials/AppCredential/AppCredentialForm.client";
+import { getCredentials } from "@/utils/credentials";
 
 interface CredentialProps extends PropsWithChildren {
   credential: Tables<"credentials">;
@@ -68,10 +70,8 @@ export function CredentialRemove({ credential }: CredentialProps) {
   );
 }
 
-export function CredentialFormDialog({
-  credential,
-  children,
-}: CredentialProps & PropsWithChildren) {
+export function CredentialFormDialog({ credential }: CredentialProps) {
+  const t = useTranslations("credentials_page");
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
@@ -80,13 +80,18 @@ export function CredentialFormDialog({
         {credential.name}
       </div>
       <Modal
+        title={t("credentials_list.app_modal.title", {
+          credential: getCredentials().find(
+            (currentCredential) => currentCredential.id === credential.app
+          )?.name,
+        })}
         opened={opened}
         onClose={close}
         classNames={{
           inner: "md:pl-[250px]",
         }}
       >
-        {children}
+        <AppCredentialFormClient app={credential.app} />
       </Modal>
     </>
   );

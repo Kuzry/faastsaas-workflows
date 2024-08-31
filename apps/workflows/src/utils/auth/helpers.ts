@@ -25,5 +25,9 @@ export async function inviteUser(
 export async function getUser(supabase: SupabaseClient<Database>) {
   const response = await supabase.auth.getUser();
 
+  if (response.error) {
+    throw new Error(response.error.message);
+  }
+
   return response.data.user;
 }

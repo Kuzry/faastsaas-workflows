@@ -239,6 +239,9 @@ const config: Config = {
           },
         },
       },
+      transitionDuration: {
+        DEFAULT: "150ms",
+      },
     },
     screens: {
       xs: "30em",

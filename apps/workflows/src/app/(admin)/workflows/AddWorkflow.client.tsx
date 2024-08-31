@@ -16,6 +16,7 @@ export function AddWorkflowClient() {
         {t("add_workflow.button")}
       </Button>
       <Modal
+        title={t("add_workflow.add_modal.title")}
         opened={opened}
         onClose={close}
         classNames={{

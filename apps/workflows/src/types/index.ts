@@ -1,6 +1,7 @@
 import { DefaultMantineColor, MantineColorsTuple } from "@mantine/core";
 import en from "./../languages/en.json";
-import { AnyZodObject } from "zod";
+import { AnyZodObject, ZodType } from "zod";
+import { useTranslations } from "next-intl";
 
 // Lemon Squeezy
 // =====================================================================================================================
@@ -87,16 +88,19 @@ export interface TDoc {
 
 // Credentials
 // =====================================================================================================================
-export interface TApps {
+export interface TCredential {
   id: string;
   name: string;
-  schema: AnyZodObject;
-  fields: {
+  // getSchema: (
+  //   t: ReturnType<typeof useTranslations<"credentials">>
+  // ) => AnyZodObject;
+  getFields: (t: ReturnType<typeof useTranslations<"credentials">>) => {
     id: string;
     type: string;
     label: string;
+    schema: ZodType;
   }[];
-  triggers: {
+  getTriggers: (t: ReturnType<typeof useTranslations<"credentials">>) => {
     id: string;
     label: string;
     data: {
@@ -104,7 +108,7 @@ export interface TApps {
       label: string;
     }[];
   }[];
-  actions: {
+  getActions: (t: ReturnType<typeof useTranslations<"credentials">>) => {
     id: string;
     label: string;
     data: {
