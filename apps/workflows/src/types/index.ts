@@ -1,6 +1,6 @@
 import { DefaultMantineColor, MantineColorsTuple } from "@mantine/core";
 import en from "./../languages/en.json";
-import { AnyZodObject, ZodType } from "zod";
+import { ZodType } from "zod";
 import { useTranslations } from "next-intl";
 
 // Lemon Squeezy
