@@ -11,6 +11,7 @@ import {
 } from "@/utils/supabase/helpers/credentials";
 import { getTranslations } from "next-intl/server";
 import { getUser } from "@/utils/auth/helpers";
+import { getAppCredentialFormSchema } from "@/forms/Credentials/AppCredential/schema";
 
 export const selectCredentialByIdAction = createServerAction()
   .input(
@@ -50,13 +51,12 @@ export const upsertClickUpCredentialsAction = createServerAction()
   .input(async () => {
     const t = await getTranslations("app_credential_form");
 
-    return z.object({
-      id: z.string().uuid().optional(),
-      name: z.string().min(1, { message: t("fields.name.messages.too_small") }),
-    });
+    return getAppCredentialFormSchema(t);
   })
   .handler(async ({ input }) => {
     const supabase = createSupabaseServerClient();
+
+    const user = await getUser(supabase);
 
     let credential;
 
@@ -66,10 +66,9 @@ export const upsertClickUpCredentialsAction = createServerAction()
         name: input.name,
       });
     } else {
-      const user = await getUser(supabase);
       credential = await insertCredential(supabase, {
         user_id: user.id,
-        app: "click_up",
+        app: input.credential_app_id,
         name: input.name,
         status: {
           name: "not_connected",

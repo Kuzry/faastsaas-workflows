@@ -260,7 +260,7 @@
   },
   "add_credential_form": {
     "fields": {
-      "app": {
+      "credential_app_id": {
         "label": "Select an app to connect to",
         "placeholder": "Search for app",
         "messages": {
@@ -269,6 +269,57 @@
       }
     },
     "submit_button": "Next"
+  },
+  "app_credential_form": {
+    "added": "Your {credential} credential has been added.",
+    "updated": "Your {credential} credential has been updated.",
+    "error": "Something went wrong during saving {credential} credential.",
+    "fields": {
+      "name": {
+        "label": "Credential Name",
+        "messages": {
+          "too_small": "Please enter credential name"
+        },
+        "credential_app_id": {
+          "messages": {
+            "custom": "Please select app to connect"
+          }
+        }
+      }
+    },
+    "submit_button": "Save credential"
+  },
+  "credentials": {
+    "clickUpOAuth2Api": {
+      "fields": {
+        "something": {
+          "label": "Something label!",
+          "messages": {
+            "too_small": "Please enter something!"
+          }
+        }
+      },
+      "triggers": {
+        "task_created": {
+          "label": "Task Created",
+          "data": {
+            "name": {
+              "label": "Name"
+            }
+          }
+        }
+      },
+      "actions": {
+        "task_create": {
+          "label": "Create Task",
+          "data": {
+            "name": {
+              "label": "Name"
+            }
+          }
+        }
+      }
+    }
   },
   "workflows_page": {
     "title": "Workflows",
@@ -308,51 +359,5 @@
       }
     },
     "submit_button": "Add Workflow"
-  },
-  "app_credential_form": {
-    "added": "Your {credential} credential has been added.",
-    "updated": "Your {credential} credential has been updated.",
-    "error": "Something went wrong during saving {credential} credential.",
-    "fields": {
-      "name": {
-        "label": "Credential Name",
-        "messages": {
-          "too_small": "Please enter credential name"
-        }
-      }
-    },
-    "submit_button": "Save credential"
-  },
-  "credentials": {
-    "clickUpOAuth2Api": {
-      "fields": {
-        "something": {
-          "label": "Something label!",
-          "messages": {
-            "too_small": "Please enter something!"
-          }
-        }
-      },
-      "triggers": {
-        "task_created": {
-          "label": "Task Created",
-          "data": {
-            "name": {
-              "label": "Name"
-            }
-          }
-        }
-      },
-      "actions": {
-        "task_create": {
-          "label": "Create Task",
-          "data": {
-            "name": {
-              "label": "Name"
-            }
-          }
-        }
-      }
-    }
   }
 }

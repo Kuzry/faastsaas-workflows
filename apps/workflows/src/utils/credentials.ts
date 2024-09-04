@@ -11,7 +11,7 @@ export function getCredentialById(
   return getCredentials().find((credential) => credential.id === id);
 }
 
-export function getZodObjectFromFieldsSchema(
+export function getZodObjectFromCredentialFieldsSchema(
   fields: ReturnType<TCredential["getFields"]>
 ): AnyZodObject {
   return z.object(fields.reduce((a, v) => ({ ...a, [v.id]: v.schema }), {}));

@@ -45,7 +45,8 @@ export function AddCredentialClient() {
       {selectedCredential && (
         <Modal
           title={t("add_credential.app_modal.title", {
-            credential: getCredentialById(selectedCredential.app)?.name,
+            credential: getCredentialById(selectedCredential.credential_app_id)
+              ?.name,
           })}
           opened={credentialFormDialog[0]}
           onClose={credentialFormDialog[1].close}
@@ -53,7 +54,9 @@ export function AddCredentialClient() {
             inner: "md:pl-[250px]",
           }}
         >
-          <AppCredentialFormClient app={selectedCredential.app} />
+          <AppCredentialFormClient
+            values={{ credential_app_id: selectedCredential.credential_app_id }}
+          />
         </Modal>
       )}
     </>

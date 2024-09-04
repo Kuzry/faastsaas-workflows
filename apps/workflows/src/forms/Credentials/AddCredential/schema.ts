@@ -6,10 +6,10 @@ export const getAddCredentialFormSchema = (
   t: ReturnType<typeof useTranslations<"add_credential_form">>
 ) =>
   z.object({
-    app: z
+    credential_app_id: z
       .string()
       .refine((value) => getCredentials().some((app) => app.id === value), {
-        message: t("fields.app.messages.custom"),
+        message: t("fields.credential_app_id.messages.custom"),
       }),
   });
 

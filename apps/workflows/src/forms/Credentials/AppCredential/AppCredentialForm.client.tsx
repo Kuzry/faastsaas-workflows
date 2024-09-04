@@ -1,6 +1,5 @@
 import { useTranslations } from "next-intl";
 import { Controller, useForm } from "react-hook-form";
-import { TAddCredentialFormSchema } from "@/forms/Credentials/AddCredential/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components";
 import { Button, TextInput } from "@mantine/core";
@@ -8,37 +7,32 @@ import { z } from "zod";
 import { ReactNode } from "react";
 import {
   getCredentialById,
-  getZodObjectFromFieldsSchema,
+  getZodObjectFromCredentialFieldsSchema,
 } from "@/utils/credentials";
 import { upsertClickUpCredentialsAction } from "@/forms/Credentials/action";
 import { useServerAction } from "zsa-react";
 import { notifications } from "@mantine/notifications";
+import { getAppCredentialFormSchema } from "@/forms/Credentials/AppCredential/schema";
 
 interface AppCredentialClientProps {
-  app: TAddCredentialFormSchema["app"];
-  values?: {
+  values: {
     id?: string;
-    name: string;
+    credential_app_id: string;
+    name?: string;
   };
 }
 
-export function AppCredentialFormClient({
-  app,
-  values,
-}: AppCredentialClientProps) {
+export function AppCredentialFormClient({ values }: AppCredentialClientProps) {
   const t = useTranslations("app_credential_form"),
     tCredentials = useTranslations("credentials");
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const currentCredential = getCredentialById(app)!,
+  const currentCredential = getCredentialById(values.credential_app_id)!,
     currentCredentialFields = currentCredential.getFields(tCredentials);
 
-  const schema = z
-    .object({
-      id: z.string().uuid().optional(),
-      name: z.string().min(1, { message: t("fields.name.messages.too_small") }),
-    })
-    .merge(getZodObjectFromFieldsSchema(currentCredentialFields));
+  const schema = getAppCredentialFormSchema(t).merge(
+    getZodObjectFromCredentialFieldsSchema(currentCredentialFields)
+  );
 
   const defaultValues: Record<string, string> = {};
   // Get app fields and set them empty string for react hook form defaultValues
@@ -54,6 +48,7 @@ export function AppCredentialFormClient({
     resolver: zodResolver(schema),
     defaultValues: {
       id: values?.id ?? undefined,
+      credential_app_id: values?.credential_app_id ?? "",
       name: values?.name ?? "",
       ...defaultValues,
     },
@@ -68,6 +63,7 @@ export function AppCredentialFormClient({
   const onSubmit = async (data: z.infer<typeof schema>) => {
     const [actionData, actionError] = await execute({
       id: data.id,
+      credential_app_id: data.credential_app_id,
       name: data.name,
     });
 

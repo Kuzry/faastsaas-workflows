@@ -5,6 +5,7 @@ import { z } from "zod";
 import { createSupabaseServerClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { deleteWorkflowById } from "@/utils/supabase/helpers/workflows";
+import { getUser } from "@/utils/auth/helpers";
 
 export const deleteWorkflowAction = createServerAction()
   .input(
@@ -15,7 +16,9 @@ export const deleteWorkflowAction = createServerAction()
   .handler(async ({ input }) => {
     const supabase = createSupabaseServerClient();
 
+    await getUser(supabase);
+
     await deleteWorkflowById(supabase, input.id);
 
-    revalidatePath("/account/workflows");
+    revalidatePath("/workflows");
   });

@@ -22,7 +22,7 @@ export function AddCredentialFormClient({
   } = useForm<TAddCredentialFormSchema>({
     resolver: zodResolver(getAddCredentialFormSchema(t)),
     defaultValues: {
-      app: "",
+      credential_app_id: "",
     },
   });
 
@@ -30,7 +30,7 @@ export function AddCredentialFormClient({
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Controller
         control={control}
-        name="app"
+        name="credential_app_id"
         render={({ field }) => (
           <Select
             {...field}
@@ -40,9 +40,9 @@ export function AddCredentialFormClient({
             }))}
             data-autofocus={true}
             searchable={true}
-            label={t("fields.app.label")}
-            placeholder={t("fields.app.placeholder")}
-            error={errors.app?.message}
+            label={t("fields.credential_app_id.label")}
+            placeholder={t("fields.credential_app_id.placeholder")}
+            error={errors.credential_app_id?.message}
           />
         )}
       />

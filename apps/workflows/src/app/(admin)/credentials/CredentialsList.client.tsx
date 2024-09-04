@@ -91,7 +91,9 @@ export function CredentialFormDialog({ credential }: CredentialProps) {
           inner: "md:pl-[250px]",
         }}
       >
-        <AppCredentialFormClient app={credential.app} />
+        <AppCredentialFormClient
+          values={{ credential_app_id: credential.app }}
+        />
       </Modal>
     </>
   );
