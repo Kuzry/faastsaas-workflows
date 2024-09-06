@@ -4,11 +4,12 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "dev:skeleton": "turbo run dev --filter=@faastsaas/skeleton",
+    "dev:website": "turbo run dev --filter=@faastsaas/website",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "prettier-check": "turbo run prettier-check",
-    "husky-prepare": "husky",
-    "prepare": "husky"
+    "husky-prepare": "husky"
   },
   "devDependencies": {
     "turbo": "^2.1.1",
