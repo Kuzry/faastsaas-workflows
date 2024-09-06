@@ -9,47 +9,6 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      credentials: {
-        Row: {
-          app: string;
-          created_at: string;
-          data: string | null;
-          id: string;
-          name: string;
-          status: Json;
-          updated_at: string;
-          user_id: string;
-        };
-        Insert: {
-          app: string;
-          created_at?: string;
-          data?: string | null;
-          id?: string;
-          name: string;
-          status: Json;
-          updated_at?: string;
-          user_id: string;
-        };
-        Update: {
-          app?: string;
-          created_at?: string;
-          data?: string | null;
-          id?: string;
-          name?: string;
-          status?: Json;
-          updated_at?: string;
-          user_id?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "credentials_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "users";
-            referencedColumns: ["id"];
-          },
-        ];
-      };
       plan_rules: {
         Row: {
           id: number;
@@ -228,7 +187,7 @@ export interface Database {
           error?: string | null;
           event_name: string;
           id?: number;
-          processed?: boolean;
+          processed: boolean;
         };
         Update: {
           body?: Json;
@@ -239,41 +198,6 @@ export interface Database {
           processed?: boolean;
         };
         Relationships: [];
-      };
-      workflows: {
-        Row: {
-          created_at: string;
-          data: Json;
-          id: string;
-          name: string;
-          updated_at: string;
-          user_id: string;
-        };
-        Insert: {
-          created_at?: string;
-          data: Json;
-          id?: string;
-          name: string;
-          updated_at?: string;
-          user_id: string;
-        };
-        Update: {
-          created_at?: string;
-          data?: Json;
-          id?: string;
-          name?: string;
-          updated_at?: string;
-          user_id?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "workflows_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "users";
-            referencedColumns: ["id"];
-          },
-        ];
       };
     };
     Views: {

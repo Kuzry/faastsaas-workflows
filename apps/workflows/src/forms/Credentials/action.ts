@@ -53,11 +53,11 @@ export const deleteCredentialAction = createServerAction()
   });
 
 export const upsertClickUpCredentialsAction = createServerAction()
-  .input(async (args) => {
+  .input(async () => {
     const t = await getTranslations("app_credential_form");
 
-    console.log("args..");
-    console.log(args);
+    // console.log("args..");
+    // console.log(args);
 
     return getAppCredentialFormSchema(t).merge(
       z.object({
@@ -68,7 +68,7 @@ export const upsertClickUpCredentialsAction = createServerAction()
   .handler(async ({ input }) => {
     const supabase = createSupabaseServerClient();
 
-    console.log(input);
+    // console.log(input);
 
     const user = await getUser(supabase);
 

@@ -5,6 +5,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "dev:workflows": "turbo run dev --filter=@faastsaas/workflows",
+    "dev:skeleton": "turbo run dev --filter=@faastsaas/skeleton",
+    "dev:website": "turbo run dev --filter=@faastsaas/website",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "prettier-check": "turbo run prettier-check",

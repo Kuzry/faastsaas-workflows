@@ -64,15 +64,21 @@ export function AppCredentialFormClient({ values }: AppCredentialClientProps) {
   );
 
   const onSubmit = async (data: z.infer<typeof schema>) => {
-    console.log("data------");
-    console.log(data);
-    console.log({
-      ...data,
+    // console.log("data------");
+    // console.log(data);
+    // console.log({
+    //   ...data,
+    //   id: data.id,
+    //   credential_app_id: data.credential_app_id,
+    //   name: data.name,
+    // });
+    const [actionData, actionError] = await execute({
+      // ...data,
       id: data.id,
       credential_app_id: data.credential_app_id,
       name: data.name,
+      username: "",
     });
-    const [actionData, actionError] = await execute(data);
 
     if (actionError) {
       notifications.show({

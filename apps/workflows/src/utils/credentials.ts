@@ -1,6 +1,5 @@
 import { TCredential } from "@/types";
 import { AnyZodObject, z } from "zod";
-import { encryptCredentialData } from "@/utils/credentials-crypto";
 
 export function getCredentials() {
   return [getClickUpOAuth2ApiCredential(), getWordPressCredential()] as const;
