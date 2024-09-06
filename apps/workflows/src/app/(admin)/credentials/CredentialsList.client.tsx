@@ -9,8 +9,7 @@ import { useServerAction } from "zsa-react";
 import { Tables } from "@/types/supabase";
 import { notifications } from "@mantine/notifications";
 import { deleteCredentialAction } from "@/forms/Credentials/action";
-import { AppCredentialFormClient } from "@/forms/Credentials/AppCredential/AppCredentialForm.client";
-import { getCredentials } from "@/utils/credentials";
+import { getCredentialByAppId, getCredentials } from "@/utils/credentials";
 
 interface CredentialProps extends PropsWithChildren {
   credential: Tables<"credentials">;
@@ -70,9 +69,23 @@ export function CredentialRemove({ credential }: CredentialProps) {
   );
 }
 
-export function CredentialFormDialog({ credential }: CredentialProps) {
+export function CredentialFormDialog({
+  credential,
+  children,
+}: CredentialProps & PropsWithChildren) {
   const t = useTranslations("credentials_page");
   const [opened, { open, close }] = useDisclosure(false);
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const credentialApp = getCredentialByAppId(credential.app)!;
+
+  const data = [];
+
+  credentialApp.getFields(useTranslations("credentials")).forEach((field) => {
+    data.push({
+      id: field.id,
+    });
+  });
 
   return (
     <>
@@ -91,9 +104,7 @@ export function CredentialFormDialog({ credential }: CredentialProps) {
           inner: "md:pl-[250px]",
         }}
       >
-        <AppCredentialFormClient
-          values={{ credential_app_id: credential.app }}
-        />
+        {children}
       </Modal>
     </>
   );

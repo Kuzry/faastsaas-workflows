@@ -1,3 +1,5 @@
+"use client";
+
 import { Form } from "@/components";
 import { useTranslations } from "next-intl";
 import { Controller, useForm } from "react-hook-form";

@@ -1,12 +1,14 @@
+"use client";
+
 import { useTranslations } from "next-intl";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components";
-import { Button, TextInput } from "@mantine/core";
+import { Alert, Button, PasswordInput, TextInput } from "@mantine/core";
 import { z } from "zod";
 import { ReactNode } from "react";
 import {
-  getCredentialById,
+  getCredentialByAppId,
   getZodObjectFromCredentialFieldsSchema,
 } from "@/utils/credentials";
 import { upsertClickUpCredentialsAction } from "@/forms/Credentials/action";
@@ -19,6 +21,7 @@ interface AppCredentialClientProps {
     id?: string;
     credential_app_id: string;
     name?: string;
+    credential_app_data?: Record<string, string>;
   };
 }
 
@@ -27,16 +30,16 @@ export function AppCredentialFormClient({ values }: AppCredentialClientProps) {
     tCredentials = useTranslations("credentials");
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const currentCredential = getCredentialById(values.credential_app_id)!,
+  const currentCredential = getCredentialByAppId(values.credential_app_id)!,
     currentCredentialFields = currentCredential.getFields(tCredentials);
-
-  const schema = getAppCredentialFormSchema(t).merge(
-    getZodObjectFromCredentialFieldsSchema(currentCredentialFields)
-  );
 
   const defaultValues: Record<string, string> = {};
   // Get app fields and set them empty string for react hook form defaultValues
   currentCredentialFields.forEach((field) => (defaultValues[field.id] = ""));
+
+  const schema = getAppCredentialFormSchema(t).merge(
+    getZodObjectFromCredentialFieldsSchema(currentCredentialFields)
+  );
 
   const {
     handleSubmit,
@@ -61,11 +64,15 @@ export function AppCredentialFormClient({ values }: AppCredentialClientProps) {
   );
 
   const onSubmit = async (data: z.infer<typeof schema>) => {
-    const [actionData, actionError] = await execute({
+    console.log("data------");
+    console.log(data);
+    console.log({
+      ...data,
       id: data.id,
       credential_app_id: data.credential_app_id,
       name: data.name,
     });
+    const [actionData, actionError] = await execute(data);
 
     if (actionError) {
       notifications.show({
@@ -112,25 +119,45 @@ export function AppCredentialFormClient({ values }: AppCredentialClientProps) {
           />
         )}
       />
-      {currentCredential
-        ?.getFields(tCredentials)
-        .map((appField, key) => (
-          <div key={key}>
-            {appField.type === "text" && (
-              <Controller
-                control={control}
-                name={appField.id}
-                render={({ field }) => (
-                  <TextInput
-                    {...field}
-                    label={appField.label}
-                    error={errors[appField.id]?.message as ReactNode}
-                  />
-                )}
-              />
-            )}
-          </div>
-        ))}
+      {currentCredential?.getFields(tCredentials).map((appField, key) => (
+        <div key={key}>
+          {appField.type === "text" && (
+            <Controller
+              control={control}
+              name={appField.id}
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={appField.label}
+                  description={appField.description}
+                  error={errors[appField.id]?.message as ReactNode}
+                />
+              )}
+            />
+          )}
+          {appField.type === "password" && (
+            <Controller
+              control={control}
+              name={appField.id}
+              render={({ field }) => (
+                <PasswordInput
+                  {...field}
+                  label={appField.label}
+                  description={appField.description}
+                  error={errors[appField.id]?.message as ReactNode}
+                />
+              )}
+            />
+          )}
+          {appField.type === "button" && (
+            <Alert color="yellow">
+              <Button variant="outline" color="yellow" className="w-full">
+                {appField.label}
+              </Button>
+            </Alert>
+          )}
+        </div>
+      ))}
       <Button type="submit" loading={isPending}>
         {t("submit_button")}
       </Button>

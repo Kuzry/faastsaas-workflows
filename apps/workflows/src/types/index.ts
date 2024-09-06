@@ -98,8 +98,10 @@ export interface TCredential {
     id: string;
     type: string;
     label: string;
-    schema: ZodType;
+    description?: string;
+    schema?: ZodType;
   }[];
+  getFieldsSecureForDisplay: <T extends Record<string, string>>(data: T) => T;
   getTriggers: (t: ReturnType<typeof useTranslations<"credentials">>) => {
     id: string;
     label: string;

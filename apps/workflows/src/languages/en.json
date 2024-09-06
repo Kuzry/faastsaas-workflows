@@ -319,6 +319,30 @@
           }
         }
       }
+    },
+    "wordpress": {
+      "fields": {
+        "username": {
+          "label": "WordPress Username",
+          "messages": {
+            "too_small": "Please enter WordPress Username"
+          }
+        },
+        "password": {
+          "label": "WordPress Application Password",
+          "description": "For security reasons, your password is encrypted. If you want to enter a new password, clear this field and enter new password.",
+          "messages": {
+            "too_small": "Please enter WordPress Application Password"
+          }
+        },
+        "url": {
+          "label": "WordPress REST API URL",
+          "description": "E.g.: https://example.com/wp-json/wp/v2/",
+          "messages": {
+            "invalid_string": "Please enter WordPress URL"
+          }
+        }
+      }
     }
   },
   "workflows_page": {

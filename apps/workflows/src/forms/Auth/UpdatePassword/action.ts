@@ -4,6 +4,7 @@ import { createSupabaseServerClient } from "@/utils/supabase/server";
 import { createServerAction } from "zsa";
 import { getUpdatePasswordFormSchema } from "@/forms/Auth/UpdatePassword/schema";
 import { getTranslations } from "next-intl/server";
+import { getUser } from "@/utils/auth/helpers";
 
 export const updatePasswordFormAction = createServerAction()
   .input(async () =>
@@ -11,6 +12,8 @@ export const updatePasswordFormAction = createServerAction()
   )
   .handler(async ({ input }) => {
     const supabase = createSupabaseServerClient();
+
+    await getUser(supabase);
 
     const updatePasswordResponse = await supabase.auth.updateUser({
       password: input.password,

@@ -12,6 +12,7 @@ import {
 import { getTranslations } from "next-intl/server";
 import { getUser } from "@/utils/auth/helpers";
 import { getAppCredentialFormSchema } from "@/forms/Credentials/AppCredential/schema";
+import { encryptCredentialData } from "@/utils/credentials-crypto";
 
 export const selectCredentialByIdAction = createServerAction()
   .input(
@@ -21,6 +22,8 @@ export const selectCredentialByIdAction = createServerAction()
   )
   .handler(async ({ input }) => {
     const supabase = createSupabaseServerClient();
+
+    await getUser(supabase);
 
     const credential = await supabase
       .from("credentials")
@@ -42,19 +45,30 @@ export const deleteCredentialAction = createServerAction()
   .handler(async ({ input }) => {
     const supabase = createSupabaseServerClient();
 
+    await getUser(supabase);
+
     await deleteCredentialById(supabase, input.id);
 
     revalidatePath("/credentials");
   });
 
 export const upsertClickUpCredentialsAction = createServerAction()
-  .input(async () => {
+  .input(async (args) => {
     const t = await getTranslations("app_credential_form");
 
-    return getAppCredentialFormSchema(t);
+    console.log("args..");
+    console.log(args);
+
+    return getAppCredentialFormSchema(t).merge(
+      z.object({
+        username: z.string(),
+      })
+    );
   })
   .handler(async ({ input }) => {
     const supabase = createSupabaseServerClient();
+
+    console.log(input);
 
     const user = await getUser(supabase);
 
@@ -73,6 +87,13 @@ export const upsertClickUpCredentialsAction = createServerAction()
         status: {
           name: "not_connected",
         },
+        data: encryptCredentialData(
+          JSON.stringify({
+            // username: input.username,
+            // password: input.password,
+            // url: input.url,
+          })
+        ),
       });
     }
 

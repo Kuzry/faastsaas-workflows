@@ -10,6 +10,9 @@ import {
 } from "@/app/(admin)/credentials/CredentialsList.client";
 import { TCredentialStatus, TCredentialStatusName } from "@/types";
 import { selectAllCredentialsOrderByCreatedAt } from "@/utils/supabase/helpers/credentials";
+import { AppCredentialFormClient } from "@/forms/Credentials/AppCredential/AppCredentialForm.client";
+import { decryptCredentialData } from "@/utils/credentials-crypto";
+import { getCredentialByAppId } from "@/utils/credentials";
 
 export function CredentialsList() {
   return (
@@ -29,21 +32,41 @@ async function CredentialsListAsync() {
   return (
     <>
       {credentials?.length !== 0 ? (
-        credentials.map((credential, key) => (
-          <Paper key={key}>
-            <PaperMain className="flex-row items-center justify-between p-0">
-              <CredentialFormDialog credential={credential} />
-              <div className="flex items-center gap-1 pr-3.5">
-                <CredentialStatus
-                  status={
-                    (credential.status as unknown as TCredentialStatus).name
-                  }
-                />
-                <CredentialRemove credential={credential} />
-              </div>
-            </PaperMain>
-          </Paper>
-        ))
+        credentials.map((credential, key) => {
+          const decryptedCredentialAppData = credential.data
+            ? JSON.parse(decryptCredentialData(credential.data ?? ""))
+            : {};
+
+          const credentialApp = getCredentialByAppId(credential.app);
+
+          return (
+            <Paper key={key}>
+              <PaperMain className="flex-row items-center justify-between p-0">
+                <CredentialFormDialog credential={credential}>
+                  <AppCredentialFormClient
+                    values={{
+                      id: credential.id,
+                      credential_app_id: credential.app,
+                      name: credential.name,
+                      credential_app_data:
+                        credentialApp?.getFieldsSecureForDisplay(
+                          decryptedCredentialAppData
+                        ),
+                    }}
+                  />
+                </CredentialFormDialog>
+                <div className="flex items-center gap-1 pr-3.5">
+                  <CredentialStatus
+                    status={
+                      (credential.status as unknown as TCredentialStatus).name
+                    }
+                  />
+                  <CredentialRemove credential={credential} />
+                </div>
+              </PaperMain>
+            </Paper>
+          );
+        })
       ) : (
         <div className="flex min-h-[300px] flex-col items-center justify-center gap-4 text-gray">
           <ActionIcon

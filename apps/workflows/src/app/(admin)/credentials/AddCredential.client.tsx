@@ -7,7 +7,7 @@ import { useState } from "react";
 import { AddCredentialFormClient } from "@/forms/Credentials/AddCredential/AddCredentialForm.client";
 import { TAddCredentialFormSchema } from "@/forms/Credentials/AddCredential/schema";
 import { AppCredentialFormClient } from "@/forms/Credentials/AppCredential/AppCredentialForm.client";
-import { getCredentialById } from "@/utils/credentials";
+import { getCredentialByAppId } from "@/utils/credentials";
 
 export function AddCredentialClient() {
   const t = useTranslations("credentials_page");
@@ -42,23 +42,24 @@ export function AddCredentialClient() {
       >
         <AddCredentialFormClient onSubmit={onSubmit} />
       </Modal>
-      {selectedCredential && (
-        <Modal
-          title={t("add_credential.app_modal.title", {
-            credential: getCredentialById(selectedCredential.credential_app_id)
-              ?.name,
-          })}
-          opened={credentialFormDialog[0]}
-          onClose={credentialFormDialog[1].close}
-          classNames={{
-            inner: "md:pl-[250px]",
+      <Modal
+        title={t("add_credential.app_modal.title", {
+          credential: getCredentialByAppId(
+            selectedCredential?.credential_app_id ?? ""
+          )?.name,
+        })}
+        opened={credentialFormDialog[0]}
+        onClose={credentialFormDialog[1].close}
+        classNames={{
+          inner: "md:pl-[250px]",
+        }}
+      >
+        <AppCredentialFormClient
+          values={{
+            credential_app_id: selectedCredential?.credential_app_id ?? "",
           }}
-        >
-          <AppCredentialFormClient
-            values={{ credential_app_id: selectedCredential.credential_app_id }}
-          />
-        </Modal>
-      )}
+        />
+      </Modal>
     </>
   );
 }
