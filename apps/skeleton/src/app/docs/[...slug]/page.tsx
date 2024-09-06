@@ -46,7 +46,6 @@ export default async function Docs({ params }: { params: { slug: string[] } }) {
         <div id="doc-content">
           <MDXComponent code={doc.code} />
         </div>
-        {/*<Ccc code={doc.code} />*/}
         <div className="mt-12 flex gap-4">
           {prevDoc ? (
             <PrevNextButtonClient
