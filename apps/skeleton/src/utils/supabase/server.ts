@@ -9,8 +9,8 @@ export function createSupabaseServerClient(useServiceKey = false) {
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
     useServiceKey
-      ? process.env.SUPABASE_SERVICE_ROLE_KEY ?? ""
-      : process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "",
+      ? (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "")
+      : (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? ""),
     {
       cookies: {
         getAll() {

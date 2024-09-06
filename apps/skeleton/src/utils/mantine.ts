@@ -11,6 +11,7 @@ import {
   rgba,
   Select,
   Switch,
+  UnstyledButton,
 } from "@mantine/core";
 
 const theme = createTheme({
@@ -38,7 +39,12 @@ const theme = createTheme({
     }),
     Button: Button.extend({
       classNames: {
-        root: "font-normal",
+        root: "font-normal transition",
+      },
+    }),
+    UnstyledButton: UnstyledButton.extend({
+      classNames: {
+        root: "font-normal transition",
       },
     }),
     Notification: Notification.extend({}),
@@ -82,7 +88,7 @@ const theme = createTheme({
     xl: "90em",
   },
 
-  defaultRadius: "md",
+  defaultRadius: "sm",
   primaryColor: "faastsaas",
   primaryShade: 5,
 });

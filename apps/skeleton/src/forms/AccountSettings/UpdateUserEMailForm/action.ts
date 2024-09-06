@@ -4,6 +4,7 @@ import { createServerAction } from "zsa";
 import { getUpdateUserEMailFormSchema } from "@/forms/AccountSettings/UpdateUserEMailForm/schema";
 import { getTranslations } from "next-intl/server";
 import { createSupabaseServerClient } from "@/utils/supabase/server";
+import { getUser } from "@/utils/auth/helpers";
 
 export const updateUserEMailFormAction = createServerAction()
   .input(async () =>
@@ -13,6 +14,9 @@ export const updateUserEMailFormAction = createServerAction()
   )
   .handler(async ({ input }) => {
     const supabase = createSupabaseServerClient();
+
+    await getUser(supabase);
+
     const updateUserResponse = await supabase.auth.updateUser({
       email: input.e_mail,
     });

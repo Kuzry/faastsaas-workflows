@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest) {
   //     .join("|")})/?$`
   // );
 
-  const user = await getUser(supabase);
+  const user = await getUser(supabase, false);
 
   if (
     user &&

@@ -187,7 +187,7 @@ export interface Database {
           error?: string | null;
           event_name: string;
           id?: number;
-          processed: boolean;
+          processed?: boolean;
         };
         Update: {
           body?: Json;

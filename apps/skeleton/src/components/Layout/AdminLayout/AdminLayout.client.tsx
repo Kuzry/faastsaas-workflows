@@ -89,11 +89,11 @@ export function AdminLayoutClient({ children, userButton }: RootProps) {
           </div>
         </AppShell.Section>
         <AppShell.Section grow component={ScrollArea}>
-          <div className="flex w-full py-2">
+          <div className="flex w-full py-0.5">
             <Menu
               classNames={{
-                root: "flex-col w-full gap-1",
-                link: "py-2.5 px-2 mx-2 hover:bg-gray-3/50 rounded",
+                root: "flex-col w-full gap-0.5",
+                link: "py-2 px-2 mx-0.5 hover:bg-gray-3/50 rounded",
               }}
             >
               <MenuItem>
@@ -105,7 +105,7 @@ export function AdminLayoutClient({ children, userButton }: RootProps) {
           </div>
         </AppShell.Section>
         <AppShell.Section className="border-t border-t-gray-9/10">
-          <div className="flex items-center p-2">
+          <div className="flex items-center p-0.5">
             <MantineMenu
               withArrow
               offset={4}
@@ -113,31 +113,40 @@ export function AdminLayoutClient({ children, userButton }: RootProps) {
               classNames={{
                 arrow: "border border-gray-9/10",
                 item: 'data-[hovered="true"]:bg-gray-3/50',
+                dropdown: "w-[260px] border border-gray-9/10 p-0.5",
               }}
             >
               {userButton}
-              <MantineMenu.Dropdown className="w-[260px] border border-gray-9/10">
+              <MantineMenu.Dropdown className="">
                 <Menu
                   orientation="vertical"
                   classNames={{
-                    root: "gap-1",
+                    root: "gap-0.5",
                     link: "rounded w-full p-2",
                   }}
                 >
-                  <MantineMenu.Item component={MenuLink} href="/settings">
-                    {t("menu.settings.label")}
-                  </MantineMenu.Item>
-                  <MantineMenu.Item component={MenuLink} href="/billing">
-                    {t("menu.billing.label")}
-                  </MantineMenu.Item>
-                  <MantineMenu.Divider />
-                  <MantineMenu.Item
-                    component={MenuLink}
-                    href={authLinks.logout}
-                    className='text-red hover:text-red data-[hovered="true"]:bg-red-2/50'
-                  >
-                    {t("menu.log_out.label")}
-                  </MantineMenu.Item>
+                  <MenuItem>
+                    <MantineMenu.Item component={MenuLink} href="/settings">
+                      {t("menu.settings.label")}
+                    </MantineMenu.Item>
+                  </MenuItem>
+                  <MenuItem>
+                    <MantineMenu.Item component={MenuLink} href="/billing">
+                      {t("menu.billing.label")}
+                    </MantineMenu.Item>
+                  </MenuItem>
+                  <MenuItem>
+                    <MantineMenu.Divider />
+                  </MenuItem>
+                  <MenuItem>
+                    <MantineMenu.Item
+                      component={MenuLink}
+                      href={authLinks.logout}
+                      className='text-red hover:text-red data-[hovered="true"]:bg-red-2/50'
+                    >
+                      {t("menu.log_out.label")}
+                    </MantineMenu.Item>
+                  </MenuItem>
                 </Menu>
               </MantineMenu.Dropdown>
             </MantineMenu>
