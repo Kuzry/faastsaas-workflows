@@ -64,8 +64,7 @@ declare module "@mantine/core" {
 export type Messages = typeof en;
 
 declare global {
-  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-  interface IntlMessages extends Messages {}
+  type IntlMessages = Messages;
 }
 // End next-intl
 // =====================================================================================================================
