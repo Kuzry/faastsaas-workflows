@@ -13,6 +13,10 @@ import { getTranslations } from "next-intl/server";
 import { getUser } from "@/utils/auth/helpers";
 import { getAppCredentialFormSchema } from "@/forms/Credentials/AppCredential/schema";
 import { encryptCredentialData } from "@/utils/credentials-crypto";
+import {
+  getCredentials,
+  getZodObjectFromCredentialFieldsSchema,
+} from "@/utils/credentials";
 
 export const selectCredentialByIdAction = createServerAction()
   .input(
@@ -52,23 +56,29 @@ export const deleteCredentialAction = createServerAction()
     revalidatePath("/credentials");
   });
 
-export const upsertClickUpCredentialsAction = createServerAction()
+export const upsertCredentialAction = createServerAction()
   .input(async () => {
-    const t = await getTranslations("app_credential_form");
+    const t = await getTranslations("app_credential_form"),
+      tCredentials = await getTranslations("credentials");
 
-    // console.log("args..");
-    // console.log(args);
+    let allCredentialsSchema = z.object({});
 
-    return getAppCredentialFormSchema(t).merge(
-      z.object({
-        username: z.string(),
-      })
-    );
+    getCredentials().forEach((credential) => {
+      allCredentialsSchema = allCredentialsSchema.merge(
+        getZodObjectFromCredentialFieldsSchema(
+          credential.getFields(tCredentials)
+        )
+      );
+    });
+
+    // console.log("inputtttt");
+
+    return getAppCredentialFormSchema(t).merge(allCredentialsSchema);
   })
   .handler(async ({ input }) => {
     const supabase = createSupabaseServerClient();
 
-    // console.log(input);
+    // input.asd = "asd";
 
     const user = await getUser(supabase);
 

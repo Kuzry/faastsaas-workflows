@@ -90,9 +90,6 @@ export interface TDoc {
 export interface TCredential {
   id: string;
   name: string;
-  // getSchema: (
-  //   t: ReturnType<typeof useTranslations<"credentials">>
-  // ) => AnyZodObject;
   getFields: (t: ReturnType<typeof useTranslations<"credentials">>) => {
     id: string;
     type: string;

@@ -11,15 +11,15 @@ import {
   getCredentialByAppId,
   getZodObjectFromCredentialFieldsSchema,
 } from "@/utils/credentials";
-import { upsertClickUpCredentialsAction } from "@/forms/Credentials/action";
+import { upsertCredentialAction } from "@/forms/Credentials/action";
 import { useServerAction } from "zsa-react";
 import { notifications } from "@mantine/notifications";
 import { getAppCredentialFormSchema } from "@/forms/Credentials/AppCredential/schema";
 
 interface AppCredentialClientProps {
   values: {
-    id?: string;
     credential_app_id: string;
+    id?: string;
     name?: string;
     credential_app_data?: Record<string, string>;
   };
@@ -59,9 +59,7 @@ export function AppCredentialFormClient({ values }: AppCredentialClientProps) {
 
   const id = watch("id");
 
-  const { isPending, execute } = useServerAction(
-    upsertClickUpCredentialsAction
-  );
+  const { isPending, execute } = useServerAction(upsertCredentialAction);
 
   const onSubmit = async (data: z.infer<typeof schema>) => {
     // console.log("data------");
@@ -77,7 +75,6 @@ export function AppCredentialFormClient({ values }: AppCredentialClientProps) {
       id: data.id,
       credential_app_id: data.credential_app_id,
       name: data.name,
-      username: "",
     });
 
     if (actionError) {
