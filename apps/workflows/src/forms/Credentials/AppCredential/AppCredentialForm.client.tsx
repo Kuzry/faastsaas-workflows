@@ -5,12 +5,9 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components";
 import { Alert, Button, PasswordInput, TextInput } from "@mantine/core";
-import { z } from "zod";
+import { z, ZodTypeAny } from "zod";
 import { ReactNode } from "react";
-import {
-  getCredentialByAppId,
-  getZodObjectFromCredentialFieldsSchema,
-} from "@/utils/credentials";
+import { getCredentialByAppId } from "@/utils/credentials";
 import { upsertCredentialAction } from "@/forms/Credentials/action";
 import { useServerAction } from "zsa-react";
 import { notifications } from "@mantine/notifications";
@@ -33,12 +30,15 @@ export function AppCredentialFormClient({ values }: AppCredentialClientProps) {
   const currentCredential = getCredentialByAppId(values.credential_app_id)!,
     currentCredentialFields = currentCredential.getFields(tCredentials);
 
-  const defaultValues: Record<string, string> = {};
-  // Get app fields and set them empty string for react hook form defaultValues
-  currentCredentialFields.forEach((field) => (defaultValues[field.id] = ""));
-
   const schema = getAppCredentialFormSchema(t).merge(
-    getZodObjectFromCredentialFieldsSchema(currentCredentialFields)
+    z.object({
+      credential_app_data: z.object(
+        currentCredentialFields.reduce(
+          (a, v) => ({ ...a, [v.id]: v.schema }),
+          {}
+        ) as Record<string, ZodTypeAny>
+      ),
+    })
   );
 
   const {
@@ -53,7 +53,9 @@ export function AppCredentialFormClient({ values }: AppCredentialClientProps) {
       id: values?.id ?? undefined,
       credential_app_id: values?.credential_app_id ?? "",
       name: values?.name ?? "",
-      ...defaultValues,
+      credential_app_data:
+        values.credential_app_data ??
+        currentCredentialFields.reduce((a, v) => ({ ...a, [v.id]: "" }), {}),
     },
   });
 
@@ -62,20 +64,7 @@ export function AppCredentialFormClient({ values }: AppCredentialClientProps) {
   const { isPending, execute } = useServerAction(upsertCredentialAction);
 
   const onSubmit = async (data: z.infer<typeof schema>) => {
-    // console.log("data------");
-    // console.log(data);
-    // console.log({
-    //   ...data,
-    //   id: data.id,
-    //   credential_app_id: data.credential_app_id,
-    //   name: data.name,
-    // });
-    const [actionData, actionError] = await execute({
-      // ...data,
-      id: data.id,
-      credential_app_id: data.credential_app_id,
-      name: data.name,
-    });
+    const [actionData, actionError] = await execute(data);
 
     if (actionError) {
       notifications.show({
@@ -122,40 +111,54 @@ export function AppCredentialFormClient({ values }: AppCredentialClientProps) {
           />
         )}
       />
-      {currentCredential?.getFields(tCredentials).map((appField, key) => (
+      {currentCredentialFields.map((credentialField, key) => (
         <div key={key}>
-          {appField.type === "text" && (
+          {credentialField.type === "text" && (
             <Controller
               control={control}
-              name={appField.id}
-              render={({ field }) => (
-                <TextInput
-                  {...field}
-                  label={appField.label}
-                  description={appField.description}
-                  error={errors[appField.id]?.message as ReactNode}
-                />
-              )}
+              name={`credential_app_data.${credentialField.id}`}
+              render={({ field }) => {
+                const fieldErrors = field.name.split(".");
+
+                return (
+                  <TextInput
+                    {...field}
+                    label={credentialField.label}
+                    description={credentialField.description}
+                    error={
+                      errors.credential_app_data?.[fieldErrors[1]]
+                        ?.message as ReactNode
+                    }
+                  />
+                );
+              }}
             />
           )}
-          {appField.type === "password" && (
+          {credentialField.type === "password" && (
             <Controller
               control={control}
-              name={appField.id}
-              render={({ field }) => (
-                <PasswordInput
-                  {...field}
-                  label={appField.label}
-                  description={appField.description}
-                  error={errors[appField.id]?.message as ReactNode}
-                />
-              )}
+              name={`credential_app_data.${credentialField.id}`}
+              render={({ field }) => {
+                const fieldErrors = field.name.split(".");
+
+                return (
+                  <PasswordInput
+                    {...field}
+                    label={credentialField.label}
+                    description={credentialField.description}
+                    error={
+                      errors.credential_app_data?.[fieldErrors[1]]
+                        ?.message as ReactNode
+                    }
+                  />
+                );
+              }}
             />
           )}
-          {appField.type === "button" && (
+          {credentialField.type === "button" && (
             <Alert color="yellow">
               <Button variant="outline" color="yellow" className="w-full">
-                {appField.label}
+                {credentialField.label}
               </Button>
             </Alert>
           )}

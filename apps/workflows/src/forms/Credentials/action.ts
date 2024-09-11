@@ -13,10 +13,7 @@ import { getTranslations } from "next-intl/server";
 import { getUser } from "@/utils/auth/helpers";
 import { getAppCredentialFormSchema } from "@/forms/Credentials/AppCredential/schema";
 import { encryptCredentialData } from "@/utils/credentials-crypto";
-import {
-  getCredentials,
-  getZodObjectFromCredentialFieldsSchema,
-} from "@/utils/credentials";
+import { getCredentialByAppId } from "@/utils/credentials";
 
 export const selectCredentialByIdAction = createServerAction()
   .input(
@@ -58,27 +55,26 @@ export const deleteCredentialAction = createServerAction()
 
 export const upsertCredentialAction = createServerAction()
   .input(async () => {
-    const t = await getTranslations("app_credential_form"),
-      tCredentials = await getTranslations("credentials");
-
-    let allCredentialsSchema = z.object({});
-
-    getCredentials().forEach((credential) => {
-      allCredentialsSchema = allCredentialsSchema.merge(
-        getZodObjectFromCredentialFieldsSchema(
-          credential.getFields(tCredentials)
-        )
-      );
-    });
-
-    // console.log("inputtttt");
-
-    return getAppCredentialFormSchema(t).merge(allCredentialsSchema);
+    const t = await getTranslations("app_credential_form");
+    return getAppCredentialFormSchema(t).merge(
+      z.object({
+        credential_app_data: z.any(),
+      })
+    );
   })
   .handler(async ({ input }) => {
-    const supabase = createSupabaseServerClient();
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const credentialApp = getCredentialByAppId(input.credential_app_id)!;
 
-    // input.asd = "asd";
+    const credentialAppDataSchema = z.object(
+      credentialApp
+        .getFields(await getTranslations("credentials"))
+        .reduce((a, v) => ({ ...a, [v.id]: v.schema }), {})
+    );
+
+    credentialAppDataSchema.parse(input.credential_app_data);
+
+    const supabase = createSupabaseServerClient();
 
     const user = await getUser(supabase);
 
@@ -97,13 +93,7 @@ export const upsertCredentialAction = createServerAction()
         status: {
           name: "not_connected",
         },
-        data: encryptCredentialData(
-          JSON.stringify({
-            // username: input.username,
-            // password: input.password,
-            // url: input.url,
-          })
-        ),
+        data: encryptCredentialData(JSON.stringify(input.credential_app_data)),
       });
     }
 

@@ -1,5 +1,5 @@
 import { TCredential } from "@/types";
-import { AnyZodObject, z } from "zod";
+import { z } from "zod";
 
 export function getCredentials() {
   return [getClickUpOAuth2ApiCredential(), getWordPressCredential()] as const;
@@ -9,17 +9,6 @@ export function getCredentialByAppId(
   id: ReturnType<typeof getCredentials>[number]["id"]
 ) {
   return getCredentials().find((credential) => credential.id === id);
-}
-
-export function getZodObjectFromCredentialFieldsSchema(
-  fields: ReturnType<TCredential["getFields"]>
-): AnyZodObject {
-  return z.object(
-    fields.reduce(
-      (a, v) => (v.schema ? { ...a, [v.id]: v.schema } : { ...a }),
-      {}
-    )
-  );
 }
 
 export function getClickUpOAuth2ApiCredential(): TCredential {
@@ -106,7 +95,7 @@ export function getWordPressCredential(): TCredential {
     getFieldsSecureForDisplay: (data) => {
       return {
         ...data,
-        access_token: "123qwe123",
+        password: "__ENCRYPTED__",
       };
     },
     getTriggers: (t) => [

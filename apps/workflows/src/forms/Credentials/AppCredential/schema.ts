@@ -12,7 +12,3 @@ export const getAppCredentialFormSchema = (
       .refine((value) => getCredentials().some((app) => app.id === value)),
     name: z.string().min(1, { message: t("fields.name.messages.too_small") }),
   });
-
-export type TAppCredentialFormSchema = z.infer<
-  ReturnType<typeof getAppCredentialFormSchema>
->;
