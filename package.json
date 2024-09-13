@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
+    "build:faastsaas-core": "turbo run build --filter=@faastsaas/core",
     "dev": "turbo run dev",
     "dev:workflows": "turbo run dev --filter=@faastsaas/workflows",
     "lint": "turbo run lint",
